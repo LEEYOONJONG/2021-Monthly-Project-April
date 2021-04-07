@@ -67,7 +67,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="학점" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kaJ-Ig-dPo">
-                                            <rect key="frame" x="29" y="62" width="70" height="48"/>
+                                            <rect key="frame" x="30" y="62" width="70" height="48"/>
                                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -75,7 +75,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="kaJ-Ig-dPo" secondAttribute="bottom" constant="10" id="exM-6f-nYS"/>
-                                        <constraint firstItem="kaJ-Ig-dPo" firstAttribute="leading" secondItem="yEv-Qw-6zi" secondAttribute="leading" constant="29" id="lJG-Hq-jIt"/>
+                                        <constraint firstItem="kaJ-Ig-dPo" firstAttribute="leading" secondItem="yEv-Qw-6zi" secondAttribute="leading" constant="30" id="lJG-Hq-jIt"/>
                                     </constraints>
                                     <connections>
                                         <outlet property="HeaderLabel" destination="kaJ-Ig-dPo" id="26r-Fz-n9y"/>
@@ -98,10 +98,138 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="내 학점" image="list.number" catalog="system" id="Uoo-ls-Zxt"/>
+                    <connections>
+                        <segue destination="QLJ-hV-eDV" kind="presentation" identifier="showDetail" id="kZF-MO-Gfj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-197.10144927536234" y="793.52678571428567"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="ji4-Kw-3AH">
+            <objects>
+                <viewController id="QLJ-hV-eDV" customClass="DetailViewController" customModule="_021_April" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0ho-9b-Mqu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sn1-IS-2W9">
+                                <rect key="frame" x="0.0" y="40" width="414" height="768"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dR1-0L-kh5">
+                                    <size key="itemSize" width="414" height="60"/>
+                                    <size key="headerReferenceSize" width="414" height="160"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailCell" id="bwb-Hg-bFe" customClass="DetailCell" customModule="_021_April" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="160" width="414" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="VLI-aK-fOf">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="과목명" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ym7-r5-3XR">
+                                                    <rect key="frame" x="33" y="7.5" width="209" height="45"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="45" id="krm-Fi-3a5"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="학점" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WD9-8K-cnK">
+                                                    <rect key="frame" x="262" y="7.5" width="52.5" height="45"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="52.5" id="4nY-jG-yPp"/>
+                                                        <constraint firstAttribute="height" constant="45" id="cMm-lG-1Lm"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="성적" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M5W-27-K1r">
+                                                    <rect key="frame" x="334.5" y="7.5" width="52.5" height="45"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="45" id="7VX-aT-1TM"/>
+                                                        <constraint firstAttribute="width" constant="52.5" id="dpN-Gv-qBU"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="M5W-27-K1r" firstAttribute="leading" secondItem="WD9-8K-cnK" secondAttribute="trailing" constant="20" id="Ayw-VL-TxC"/>
+                                                <constraint firstAttribute="trailing" secondItem="M5W-27-K1r" secondAttribute="trailing" constant="27" id="CvB-I9-a6O"/>
+                                                <constraint firstItem="Ym7-r5-3XR" firstAttribute="leading" secondItem="VLI-aK-fOf" secondAttribute="leading" constant="33" id="VSp-00-RfY"/>
+                                                <constraint firstItem="WD9-8K-cnK" firstAttribute="leading" secondItem="Ym7-r5-3XR" secondAttribute="trailing" constant="20" id="ol6-eL-Cbn"/>
+                                                <constraint firstItem="WD9-8K-cnK" firstAttribute="centerY" secondItem="VLI-aK-fOf" secondAttribute="centerY" id="pT1-Vq-IN8"/>
+                                                <constraint firstItem="M5W-27-K1r" firstAttribute="centerY" secondItem="VLI-aK-fOf" secondAttribute="centerY" id="vEC-YL-8Xv"/>
+                                                <constraint firstItem="Ym7-r5-3XR" firstAttribute="centerY" secondItem="VLI-aK-fOf" secondAttribute="centerY" id="wTG-l2-YDx"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="414" height="60"/>
+                                        <connections>
+                                            <outlet property="gradeInput" destination="M5W-27-K1r" id="pbK-l5-2DK"/>
+                                            <outlet property="pointInput" destination="WD9-8K-cnK" id="MaJ-hC-pcr"/>
+                                            <outlet property="subjectInput" destination="Ym7-r5-3XR" id="tUJ-9X-POg"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailCellHeaderView" id="mi9-Ie-ZQd" customClass="DetailCellHeaderView" customModule="_021_April" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1학년 1학기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dui-Ud-fFt">
+                                            <rect key="frame" x="30" y="108" width="163" height="42"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ycO-d6-254">
+                                            <rect key="frame" x="354" y="100" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="JMy-5x-5io"/>
+                                                <constraint firstAttribute="height" constant="50" id="L1d-Ee-Dnv"/>
+                                            </constraints>
+                                            <color key="tintColor" systemColor="systemRedColor"/>
+                                            <state key="normal" image="arrowshape.turn.up.backward.2.circle.fill" catalog="system">
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="40"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="close:" destination="QLJ-hV-eDV" eventType="touchUpInside" id="VHY-dU-LDX"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="ycO-d6-254" secondAttribute="trailing" constant="10" id="1dh-8B-lZy"/>
+                                        <constraint firstAttribute="bottom" secondItem="ycO-d6-254" secondAttribute="bottom" constant="10" id="I2j-Y5-iof"/>
+                                        <constraint firstAttribute="bottom" secondItem="Dui-Ud-fFt" secondAttribute="bottom" constant="10" id="Qo3-fP-RrG"/>
+                                        <constraint firstItem="Dui-Ud-fFt" firstAttribute="leading" secondItem="mi9-Ie-ZQd" secondAttribute="leading" constant="30" id="w8w-Gl-D1Y"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="DetailHeaderLabel" destination="Dui-Ud-fFt" id="ytU-La-aNJ"/>
+                                    </connections>
+                                </collectionReusableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="QLJ-hV-eDV" id="37e-TL-NrM"/>
+                                    <outlet property="delegate" destination="QLJ-hV-eDV" id="dhx-Bp-jna"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="CYj-Gy-kBe"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sn1-IS-2W9" firstAttribute="leading" secondItem="CYj-Gy-kBe" secondAttribute="leading" id="EEj-lc-QcR"/>
+                            <constraint firstItem="sn1-IS-2W9" firstAttribute="top" secondItem="CYj-Gy-kBe" secondAttribute="top" constant="40" id="Id1-Mh-u7P"/>
+                            <constraint firstItem="CYj-Gy-kBe" firstAttribute="trailing" secondItem="sn1-IS-2W9" secondAttribute="trailing" id="Xyw-G0-ypC"/>
+                            <constraint firstItem="CYj-Gy-kBe" firstAttribute="bottom" secondItem="sn1-IS-2W9" secondAttribute="bottom" id="h08-Ta-jxD"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XgH-3j-4ZS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-200.00000000000003" y="1465.8482142857142"/>
         </scene>
         <!--설정-->
         <scene sceneID="129-Y0-v7s">
@@ -141,6 +269,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="systemRedColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Bge-Ze-pE6"/>
@@ -153,6 +282,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrowshape.turn.up.backward.2.circle.fill" catalog="system" width="128" height="121"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="list.number" catalog="system" width="128" height="97"/>
         <systemColor name="systemBackgroundColor">
