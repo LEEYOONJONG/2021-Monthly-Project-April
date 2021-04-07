@@ -17,40 +17,91 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y6S-uh-Y1C">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y6S-uh-Y1C">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8S6-Sm-Yii">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8S6-Sm-Yii">
+                                    <size key="itemSize" width="381" height="120"/>
+                                    <size key="headerReferenceSize" width="50" height="120"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="IAK-KB-YCH">
-                                        <rect key="frame" x="0.0" y="50" width="128" height="128"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ScoreCell" id="IAK-KB-YCH" customClass="ScoreCell" customModule="_021_April" customModuleProvider="target">
+                                        <rect key="frame" x="16.5" y="120" width="381" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="84m-SC-nso">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="381" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1학년 1학기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mIc-4n-28f">
+                                                    <rect key="frame" x="44" y="47.5" width="97.5" height="25.5"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.84" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TK-CM-3VZ">
+                                                    <rect key="frame" x="295.5" y="47" width="50.5" height="26.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="22"/>
+                                                    <color key="textColor" systemColor="systemRedColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                            <constraints>
+                                                <constraint firstItem="1TK-CM-3VZ" firstAttribute="centerY" secondItem="84m-SC-nso" secondAttribute="centerY" id="czU-m7-SeT"/>
+                                                <constraint firstItem="mIc-4n-28f" firstAttribute="centerY" secondItem="84m-SC-nso" secondAttribute="centerY" id="f0A-li-3Ol"/>
+                                                <constraint firstItem="mIc-4n-28f" firstAttribute="leading" secondItem="84m-SC-nso" secondAttribute="leading" constant="44" id="hY9-f6-mdp"/>
+                                                <constraint firstAttribute="trailing" secondItem="1TK-CM-3VZ" secondAttribute="trailing" constant="35" id="od2-KC-txz"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
+                                        <size key="customSize" width="381" height="120"/>
+                                        <connections>
+                                            <outlet property="scoreLabel" destination="1TK-CM-3VZ" id="g4O-nL-Ris"/>
+                                            <outlet property="semesterLabel" destination="mIc-4n-28f" id="VJY-1o-I1b"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="yEv-Qw-6zi">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ScoreCellHeaderView" id="yEv-Qw-6zi" customClass="ScoreCellHeaderView" customModule="_021_April" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="학점" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kaJ-Ig-dPo">
+                                            <rect key="frame" x="29" y="62" width="70" height="48"/>
+                                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="40"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="kaJ-Ig-dPo" secondAttribute="bottom" constant="10" id="exM-6f-nYS"/>
+                                        <constraint firstItem="kaJ-Ig-dPo" firstAttribute="leading" secondItem="yEv-Qw-6zi" secondAttribute="leading" constant="29" id="lJG-Hq-jIt"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="HeaderLabel" destination="kaJ-Ig-dPo" id="26r-Fz-n9y"/>
+                                        <outlet property="headerLabel" destination="kaJ-Ig-dPo" id="NxY-VS-d9l"/>
+                                    </connections>
                                 </collectionReusableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Dyi-VK-ddi"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Tuf-Mv-zt2"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="y6S-uh-Y1C" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="B6R-4x-R4s"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="y6S-uh-Y1C" secondAttribute="trailing" id="Lyh-dW-ps6"/>
+                            <constraint firstItem="y6S-uh-Y1C" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="gBg-LA-8yQ"/>
+                            <constraint firstItem="y6S-uh-Y1C" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="wVb-ns-LAW"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="내 학점" image="list.number" catalog="system" id="Uoo-ls-Zxt"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-197" y="794"/>
+            <point key="canvasLocation" x="-197.10144927536234" y="793.52678571428567"/>
         </scene>
         <!--설정-->
         <scene sceneID="129-Y0-v7s">
@@ -87,6 +138,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="IP8-h4-Qop" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="brF-yh-tgk">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -105,6 +157,12 @@
         <image name="list.number" catalog="system" width="128" height="97"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
