@@ -226,6 +226,9 @@
                             <constraint firstItem="CYj-Gy-kBe" firstAttribute="bottom" secondItem="sn1-IS-2W9" secondAttribute="bottom" id="h08-Ta-jxD"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="DetailCollectionView" destination="sn1-IS-2W9" id="5Nn-f5-9Vq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XgH-3j-4ZS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
