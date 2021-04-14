@@ -74,10 +74,13 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         
         
-        // 무작정 0이 아니라, 1학년 1학기면 0, 1학년 2학기면 1, 이런 식으로 해야함
-        var newSemesters:[Semester]=[]
-        newSemesters.append(Semester(semesterNum: semesterIndex ?? -1, subjects: newSubjects))
-        let newStudent:Student = Student(name: "Yoonjong Lee", semesters: newSemesters)
+        // 고쳐야 함. 밑 두줄
+//        var newSemesters:[Semester] = []]//이럼 초기화됨
+        if self.student==nil{
+            print("this is nil~~")
+        }
+        self.student?.semesters.append(Semester(semesterNum: semesterIndex!, subjects: newSubjects))
+        let newStudent:Student = Student(name: "Yoonjong Lee", semesters: self.student!.semesters)
         db.child("Students").child(newStudent.name).setValue(newStudent.studentToDict)
         
     }
@@ -133,31 +136,47 @@ extension DetailViewController{
                 self.studentExist = true
                 print("self.student : \(self.student)")
                 print("self.studentExist : \(self.studentExist)")
+                self.toArray()
+                self.arrayToTextField()
             } catch let error {
+                var newSemesters:[Semester] = []
+                var newSubjects:[Subject] = [Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0)]
+                
+                newSemesters.append(Semester(semesterNum: 0, subjects: newSubjects))
+                self.student = Student(name: "Yoonjong Lee", semesters: newSemesters )
                 print("-->error: \(error.localizedDescription)")
             }
-            self.toArray()
-            self.arrayToTextField()
+            
         }
         
     }
     
     // 데이터를 긁어오는데 성공했다면, 이를 배열에 넣어주자.
     func toArray(){
+        print("--> studentExist? : \(self.studentExist), semesterIndex : \(semesterIndex)")
         if (self.studentExist == true){
             print("-> 긁어오는데 성공, \(self.student)")
             print("-> semesters: \n", self.student!.semesters)
             
-            let subjectsCount = self.student!.semesters[semesterIndex!].subjects.count
-            for j in 0..<subjectsCount {
-                self.subjects[j] = self.student!.semesters[semesterIndex!].subjects[j].title
-                self.points[j] = self.student!.semesters[semesterIndex!].subjects[j].point
-                self.grades[j] = self.student!.semesters[semesterIndex!].subjects[j].grade
+            // 현재 student의 학기 목록에 대상 학기가 존재하는지
+            var currentSemesterInFB:Bool = false
+            for i in 0..<self.student!.semesters.count{
+                if(semesterIndex == self.student!.semesters[i].semesterNum) {
+                    currentSemesterInFB = true
+                    for j in 0..<8 {
+                        self.subjects[j] = self.student!.semesters[i].subjects[j].title
+                        self.points[j] = self.student!.semesters[i].subjects[j].point
+                        self.grades[j] = self.student!.semesters[i].subjects[j].grade
+                    }
+                    print("배열에 넣었다!")
+                    print(self.subjects)
+                    print(self.points)
+                    print(self.grades)
+                }
             }
-            print("배열에 넣었다!")
-            print(self.subjects)
-            print(self.points)
-            print(self.grades)
+            if currentSemesterInFB == false {
+                print("해당 학기에 데이터가 없다!")
+            }
             
         }
         else {
@@ -165,7 +184,7 @@ extension DetailViewController{
         }
     }
     func arrayToTextField(){
-        for i in 0..<self.student!.semesters[semesterIndex!].subjects.count {
+        for i in 0..<8{
             self.DetailCollectionView.reloadItems(at: [IndexPath(item: i, section: 0)])
         }
         
