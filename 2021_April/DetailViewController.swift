@@ -30,9 +30,11 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as? DetailCell else { return UICollectionViewCell() }
-//        cell.subjectInput.text = subjects[indexPath.item]
-//        cell.pointInput.text = "\(points[indexPath.item])"
-//        cell.gradeInput.text = "\(grades[indexPath.item])"
+        print("-> indexPath.item이 \(indexPath.item)일 때")
+        print("\(subjects[indexPath.item]) \(points[indexPath.item]) \(grades[indexPath.item])")
+        cell.subjectInput.text = subjects[indexPath.item]
+        cell.pointInput.text = "\(points[indexPath.item])"
+        cell.gradeInput.text = "\(grades[indexPath.item])"
         return cell
     }
     
@@ -135,26 +137,38 @@ extension DetailViewController{
                 print("-->error: \(error.localizedDescription)")
             }
             self.toArray()
+            self.arrayToTextField()
         }
         
     }
+    
+    // 데이터를 긁어오는데 성공했다면, 이를 배열에 넣어주자.
     func toArray(){
-        // 데이터를 긁어오는데 성공했다면, 이를 배열에 넣어주자.
         if (self.studentExist == true){
             print("-> 긁어오는데 성공, \(self.student)")
             print("-> semesters: \n", self.student!.semesters)
             
-//            let subjectsCount = self.student!.semesters[semesterIndex ?? 0].subjects.count
-//            for j in 0..<subjectsCount {
-//                self.subjects[j] = self.student!.semesters[semesterIndex ?? 0].subjects[j].title
-//                self.points[j] = self.student!.semesters[semesterIndex ?? 0].subjects[j].point
-//                self.grades[j] = self.student!.semesters[semesterIndex ?? 0].subjects[j].grade
-//            }
+            let subjectsCount = self.student!.semesters[semesterIndex!].subjects.count
+            for j in 0..<subjectsCount {
+                self.subjects[j] = self.student!.semesters[semesterIndex!].subjects[j].title
+                self.points[j] = self.student!.semesters[semesterIndex!].subjects[j].point
+                self.grades[j] = self.student!.semesters[semesterIndex!].subjects[j].grade
+            }
+            print("배열에 넣었다!")
+            print(self.subjects)
+            print(self.points)
+            print(self.grades)
             
         }
         else {
             print("-> 긁어오지 못함")
         }
+    }
+    func arrayToTextField(){
+        for i in 0..<self.student!.semesters[semesterIndex!].subjects.count {
+            self.DetailCollectionView.reloadItems(at: [IndexPath(item: i, section: 0)])
+        }
+        
     }
 }
 class DetailCell: UICollectionViewCell{
