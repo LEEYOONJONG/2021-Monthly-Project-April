@@ -50,40 +50,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         
     }
     
-    func cellToDB(){
-//        var isBlank:Bool
-//        isBlank = fetchData() // 데이터가 있으면 true, 없으면 false
-        
-        
-        
-        var newSubjects:[Subject] = [Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0)]
-        
-        // newSubject 구성
-        var i=0
-        for cell in DetailCollectionView.visibleCells as! [DetailCell]{
-            let indexPath = DetailCollectionView.indexPath(for: cell)
-            
-            // -- 생략 가능
-            subjects[indexPath!.item] = cell.subjectInput.text ?? ""
-            points[indexPath!.item] = Double(cell.pointInput.text!) ?? 0
-            grades[indexPath!.item] = Double(cell.gradeInput.text!) ?? 0
-            
-            // 각 semester의 subjects들을 newSubject에 데이터화.
-            newSubjects[indexPath!.item] = Subject(title: cell.subjectInput.text ?? "", point: Double(cell.pointInput.text!) ?? 0, grade: Double(cell.gradeInput.text!) ?? 0)
-            i += 1
-        }
-        
-        
-        // 고쳐야 함. 밑 두줄
-//        var newSemesters:[Semester] = []]//이럼 초기화됨
-        if self.student==nil{
-            print("this is nil~~")
-        }
-        self.student?.semesters.append(Semester(semesterNum: semesterIndex!, subjects: newSubjects))
-        let newStudent:Student = Student(name: "Yoonjong Lee", semesters: self.student!.semesters)
-        db.child("Students").child(newStudent.name).setValue(newStudent.studentToDict)
-        
-    }
+    
     
     
     @IBAction func close(_ sender: Any) {
@@ -122,27 +89,30 @@ extension DetailViewController{
         else if semester=="4학년 1학기" { semesterIndex = 6}
         else if semester=="4학년 2학기" { semesterIndex = 7}
         
-        print("--> semester : \(semester), semesterIndex : \(semesterIndex)")
+//        print("--> semester : \(semester), semesterIndex : \(semesterIndex)")
         
         // Firebase로부터 긁어오기
         self.db.child("Students").child("Yoonjong Lee").observeSingleEvent(of: .value) { snapshot in
             print("--> \(snapshot.value!)")
-            print("- snapshot.childrenCount ->", snapshot.childrenCount)
+//            print("- snapshot.childrenCount ->", snapshot.childrenCount)
             
             do {
                 let data = try JSONSerialization.data(withJSONObject: snapshot.value!, options: [])
                 let decoder = JSONDecoder()
                 self.student = try decoder.decode(Student.self, from: data)
                 self.studentExist = true
-                print("self.student : \(self.student)")
-                print("self.studentExist : \(self.studentExist)")
+                print("->self.student : \(self.student)")
+                print("->self.studentExist : \(self.studentExist)")
                 self.toArray()
                 self.arrayToTextField()
-            } catch let error {
+            } catch let error { // 파베에 아무것도 없다면 학기 8개, 각 학기별 과목 8개 빈 배열 세팅한다.
                 var newSemesters:[Semester] = []
-                var newSubjects:[Subject] = [Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0)]
+                let newSubjects:[Subject] = Array(repeating: Subject(title: "", point: 0, grade: 0), count: 8)
                 
-                newSemesters.append(Semester(semesterNum: 0, subjects: newSubjects))
+                
+                for i in 0..<8 {
+                    newSemesters.append(Semester(semesterNum: i, subjects: newSubjects))
+                }
                 self.student = Student(name: "Yoonjong Lee", semesters: newSemesters )
                 print("-->error: \(error.localizedDescription)")
             }
@@ -168,7 +138,7 @@ extension DetailViewController{
                         self.points[j] = self.student!.semesters[i].subjects[j].point
                         self.grades[j] = self.student!.semesters[i].subjects[j].grade
                     }
-                    print("배열에 넣었다!")
+                    print("\(i)번째 배열에 넣었다!")
                     print(self.subjects)
                     print(self.points)
                     print(self.grades)
@@ -182,11 +152,50 @@ extension DetailViewController{
         else {
             print("-> 긁어오지 못함")
         }
+        print("완료된 toArray : ", subjects)
     }
     func arrayToTextField(){
+        print("arrayToTextField : ", subjects)
         for i in 0..<8{
             self.DetailCollectionView.reloadItems(at: [IndexPath(item: i, section: 0)])
         }
+        print("-> arrayToTextField 완료")
+        
+    }
+}
+extension DetailViewController {
+    func cellToDB(){
+//        var isBlank:Bool
+//        isBlank = fetchData() // 데이터가 있으면 true, 없으면 false
+        
+         
+        var newSubjects:[Subject] = [Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0)]
+        
+        // newSubject 구성
+        var i=0
+        for cell in DetailCollectionView.visibleCells as! [DetailCell]{
+            let indexPath = DetailCollectionView.indexPath(for: cell)
+            
+            // -- 생략 가능
+            subjects[indexPath!.item] = cell.subjectInput.text ?? ""
+            points[indexPath!.item] = Double(cell.pointInput.text!) ?? 0
+            grades[indexPath!.item] = Double(cell.gradeInput.text!) ?? 0
+            
+            // 각 semester의 subjects들을 newSubject에 데이터화.
+            newSubjects[indexPath!.item] = Subject(title: cell.subjectInput.text ?? "", point: Double(cell.pointInput.text!) ?? 0, grade: Double(cell.gradeInput.text!) ?? 0)
+            i += 1
+        }
+        
+        
+        // 고쳐야 함. 밑 두줄
+//        var newSemesters:[Semester] = []]//이럼 초기화됨
+        if self.student==nil{
+            print("this is nil~~")
+        }
+        self.student?.semesters[semesterIndex ?? 18] =
+            Semester(semesterNum: semesterIndex!, subjects: newSubjects)
+        let newStudent:Student = Student(name: "Yoonjong Lee", semesters: self.student!.semesters)
+        db.child("Students").child(newStudent.name).setValue(newStudent.studentToDict)
         
     }
 }
