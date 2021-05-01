@@ -99,6 +99,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="내 학점" image="list.number" catalog="system" id="Uoo-ls-Zxt"/>
                     <connections>
+                        <outlet property="collectionView" destination="y6S-uh-Y1C" id="LcB-Oq-SnP"/>
                         <segue destination="QLJ-hV-eDV" kind="presentation" identifier="showDetail" id="kZF-MO-Gfj"/>
                     </connections>
                 </viewController>
@@ -226,6 +227,7 @@
                             <constraint firstItem="CYj-Gy-kBe" firstAttribute="bottom" secondItem="sn1-IS-2W9" secondAttribute="bottom" id="h08-Ta-jxD"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="arv-a2-piy"/>
                     <connections>
                         <outlet property="DetailCollectionView" destination="sn1-IS-2W9" id="5Nn-f5-9Vq"/>
                     </connections>

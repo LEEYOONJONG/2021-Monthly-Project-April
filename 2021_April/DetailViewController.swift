@@ -9,7 +9,13 @@ import UIKit
 import Firebase
 
 
+protocol SendDataDelegate {
+    func sendData(data: Double)
+}
+
 class DetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    var delegate:SendDataDelegate?
     
     @IBOutlet weak var DetailCollectionView: UICollectionView!
     let db = Database.database().reference()
@@ -30,8 +36,6 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCell", for: indexPath) as? DetailCell else { return UICollectionViewCell() }
-        print("-> indexPath.item이 \(indexPath.item)일 때")
-        print("\(subjects[indexPath.item]) \(points[indexPath.item]) \(grades[indexPath.item])")
         cell.subjectInput.text = subjects[indexPath.item]
         cell.pointInput.text = "\(points[indexPath.item])"
         cell.gradeInput.text = "\(grades[indexPath.item])"
@@ -49,13 +53,27 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
 
         
     }
-    
-    
+    func calcGrades() -> Double {
+        var sumGrades:Double=0.0
+        var sumPoints:Double=0.0
+        for i in 0..<grades.count{
+            if (grades[i] != 0){
+                sumGrades += points[i]*grades[i]
+                sumPoints += points[i]
+            }
+        }
+        if sumGrades == 0 {
+            return 0
+        }
+        return round(sumGrades / sumPoints * 1000) / 1000
+    }
     
     
     @IBAction func close(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
         
+        print("close 실행")
+        delegate?.sendData(data: calcGrades())
+        dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -68,11 +86,6 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
         // 이때 firebase 디비에 저장해주어야
         
         cellToDB()
-//        db.child("Students").removeValue()
-        print(subjects)
-        print(points)
-        print(grades)
-        
     }
 }
 extension DetailViewController{
@@ -89,20 +102,15 @@ extension DetailViewController{
         else if semester=="4학년 1학기" { semesterIndex = 6}
         else if semester=="4학년 2학기" { semesterIndex = 7}
         
-//        print("--> semester : \(semester), semesterIndex : \(semesterIndex)")
-        
         // Firebase로부터 긁어오기
         self.db.child("Students").child("Yoonjong Lee").observeSingleEvent(of: .value) { snapshot in
-            print("--> \(snapshot.value!)")
-//            print("- snapshot.childrenCount ->", snapshot.childrenCount)
+//            print("--> \(snapshot.value!)")
             
             do {
                 let data = try JSONSerialization.data(withJSONObject: snapshot.value!, options: [])
                 let decoder = JSONDecoder()
                 self.student = try decoder.decode(Student.self, from: data)
                 self.studentExist = true
-                print("->self.student : \(self.student)")
-                print("->self.studentExist : \(self.studentExist)")
                 self.toArray()
                 self.arrayToTextField()
             } catch let error { // 파베에 아무것도 없다면 학기 8개, 각 학기별 과목 8개 빈 배열 세팅한다.
@@ -114,7 +122,6 @@ extension DetailViewController{
                     newSemesters.append(Semester(semesterNum: i, subjects: newSubjects))
                 }
                 self.student = Student(name: "Yoonjong Lee", semesters: newSemesters )
-                print("-->error: \(error.localizedDescription)")
             }
             
         }
@@ -123,10 +130,7 @@ extension DetailViewController{
     
     // 데이터를 긁어오는데 성공했다면, 이를 배열에 넣어주자.
     func toArray(){
-        print("--> studentExist? : \(self.studentExist), semesterIndex : \(semesterIndex)")
         if (self.studentExist == true){
-            print("-> 긁어오는데 성공, \(self.student)")
-            print("-> semesters: \n", self.student!.semesters)
             
             // 현재 student의 학기 목록에 대상 학기가 존재하는지
             var currentSemesterInFB:Bool = false
@@ -138,10 +142,6 @@ extension DetailViewController{
                         self.points[j] = self.student!.semesters[i].subjects[j].point
                         self.grades[j] = self.student!.semesters[i].subjects[j].grade
                     }
-                    print("\(i)번째 배열에 넣었다!")
-                    print(self.subjects)
-                    print(self.points)
-                    print(self.grades)
                 }
             }
             if currentSemesterInFB == false {
@@ -152,15 +152,11 @@ extension DetailViewController{
         else {
             print("-> 긁어오지 못함")
         }
-        print("완료된 toArray : ", subjects)
     }
     func arrayToTextField(){
-        print("arrayToTextField : ", subjects)
         for i in 0..<8{
             self.DetailCollectionView.reloadItems(at: [IndexPath(item: i, section: 0)])
         }
-        print("-> arrayToTextField 완료")
-        
     }
 }
 extension DetailViewController {

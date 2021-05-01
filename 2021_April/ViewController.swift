@@ -7,7 +7,15 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SendDataDelegate {
+    
+    
+
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     var semesterList:[String] = ["1학년 1학기", "1학년 2학기", "2학년 1학기", "2학년 2학기", "3학년 1학기", "3학년 2학기", "4학년 1학기", "4학년 2학기"]
     var scoreList:[Double] = [0,0,0,0,0,0,0,0]
     
@@ -34,23 +42,41 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
     }
     
+    // Delegate 위한 처리들
+    var activatedScoreIndex:Int = 0
+    func sendData(data: Double) {
+        scoreList[activatedScoreIndex] = data
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let vc = segue.destination as? DetailViewController
             if let index = sender as? Int{
                 vc?.semester = semesterList[index]
+                vc!.modalPresentationStyle = .fullScreen
+                activatedScoreIndex = index
+                vc?.delegate = self
             }
+            
         }
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showDetail", sender: indexPath.row)
+        
     }
     
     
 
     override func viewDidLoad() {
+        print("-- viewDidLoad 실행")
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        print("-- viewWillAppear 실행")
+//        print(scoreList)
+        self.collectionView.reloadData()
+        
     }
 
 }
