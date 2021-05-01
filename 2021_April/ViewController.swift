@@ -5,14 +5,13 @@
 //  Created by YOONJONG on 2021/03/30.
 //
 
+// TODO LIST
+// 1. ViewControoller에서 평균학점을 로컬에 저장하여 불러오는 기능
+// 2. 처음 성적을 저장할 때, 메인화면으로 나오면 지연시간으로 인해 바로 업뎃 안됨(?)
+
 import UIKit
 
-
-
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SendDataDelegate {
-    
-    
-
     
     @IBOutlet weak var collectionView: UICollectionView!
     

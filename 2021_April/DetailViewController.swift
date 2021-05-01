@@ -53,21 +53,6 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
 
         
     }
-    func calcGrades() -> Double {
-        var sumGrades:Double=0.0
-        var sumPoints:Double=0.0
-        for i in 0..<grades.count{
-            if (grades[i] != 0){
-                sumGrades += points[i]*grades[i]
-                sumPoints += points[i]
-            }
-        }
-        if sumGrades == 0 {
-            return 0
-        }
-        return round(sumGrades / sumPoints * 1000) / 1000
-    }
-    
     
     @IBAction func close(_ sender: Any) {
         
@@ -89,6 +74,22 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
 }
 extension DetailViewController{
+    // 학점 계산
+    func calcGrades() -> Double {
+        var sumGrades:Double=0.0
+        var sumPoints:Double=0.0
+        for i in 0..<grades.count{
+            if (grades[i] != 0){
+                sumGrades += points[i]*grades[i]
+                sumPoints += points[i]
+            }
+        }
+        if sumGrades == 0 {
+            return 0
+        }
+        return round(sumGrades / sumPoints * 1000) / 1000
+    }
+    
     
     // Firebase DB로부터 "Yoonjong Lee"의 데이터를 긁어온다.
     func fetchData(){
@@ -113,11 +114,10 @@ extension DetailViewController{
                 self.studentExist = true
                 self.toArray()
                 self.arrayToTextField()
-            } catch let error { // 파베에 아무것도 없다면 학기 8개, 각 학기별 과목 8개 빈 배열 세팅한다.
+            } catch { // 파베에 아무것도 없다면 학기 8개, 각 학기별 과목 8개 빈 배열 세팅한다.
                 var newSemesters:[Semester] = []
                 let newSubjects:[Subject] = Array(repeating: Subject(title: "", point: 0, grade: 0), count: 8)
-                
-                
+
                 for i in 0..<8 {
                     newSemesters.append(Semester(semesterNum: i, subjects: newSubjects))
                 }
@@ -161,14 +161,10 @@ extension DetailViewController{
 }
 extension DetailViewController {
     func cellToDB(){
-//        var isBlank:Bool
-//        isBlank = fetchData() // 데이터가 있으면 true, 없으면 false
-        
-         
-        var newSubjects:[Subject] = [Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0),Subject(title: "", point: 0, grade: 0)]
-        
+  
+        var newSubjects:[Subject] = Array(repeating: Subject(title: "", point: 0, grade: 0), count: 8)
+              
         // newSubject 구성
-        var i=0
         for cell in DetailCollectionView.visibleCells as! [DetailCell]{
             let indexPath = DetailCollectionView.indexPath(for: cell)
             
@@ -179,15 +175,8 @@ extension DetailViewController {
             
             // 각 semester의 subjects들을 newSubject에 데이터화.
             newSubjects[indexPath!.item] = Subject(title: cell.subjectInput.text ?? "", point: Double(cell.pointInput.text!) ?? 0, grade: Double(cell.gradeInput.text!) ?? 0)
-            i += 1
         }
         
-        
-        // 고쳐야 함. 밑 두줄
-//        var newSemesters:[Semester] = []]//이럼 초기화됨
-        if self.student==nil{
-            print("this is nil~~")
-        }
         self.student?.semesters[semesterIndex ?? 18] =
             Semester(semesterNum: semesterIndex!, subjects: newSubjects)
         let newStudent:Student = Student(name: "Yoonjong Lee", semesters: self.student!.semesters)
