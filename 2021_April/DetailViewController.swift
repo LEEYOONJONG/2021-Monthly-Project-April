@@ -104,22 +104,26 @@ extension DetailViewController{
         else if semester=="4학년 2학기" { semesterIndex = 7}
         
         // Firebase로부터 긁어오기
+//        self.db.child("Students").child("Yoonjong Lee").setValue([""])
         self.db.child("Students").child("Yoonjong Lee").observeSingleEvent(of: .value) { snapshot in
-//            print("--> \(snapshot.value!)")
+            print("--> \(snapshot.value!)")
             
             do {
                 let data = try JSONSerialization.data(withJSONObject: snapshot.value!, options: [])
                 let decoder = JSONDecoder()
+                
                 self.student = try decoder.decode(Student.self, from: data)
                 self.studentExist = true
                 self.toArray()
                 self.arrayToTextField()
-            } catch { // 파베에 아무것도 없다면 학기 8개, 각 학기별 과목 8개 빈 배열 세팅한다.
+                
+            } catch let error { // 파베에 아무것도 없다면 학기 8개, 각 학기별 과목 8개 빈 배열 세팅한다.
+                print("--> error : ", error.localizedDescription)
                 var newSemesters:[Semester] = []
                 let newSubjects:[Subject] = Array(repeating: Subject(title: "", point: 0, grade: 0), count: 8)
 
                 for i in 0..<8 {
-                    newSemesters.append(Semester(semesterNum: i, subjects: newSubjects))
+                    newSemesters.append(Semester(semesterNum: i, subjects: newSubjects, average: 0))
                 }
                 self.student = Student(name: "Yoonjong Lee", semesters: newSemesters )
             }
@@ -178,7 +182,7 @@ extension DetailViewController {
         }
         
         self.student?.semesters[semesterIndex ?? 18] =
-            Semester(semesterNum: semesterIndex!, subjects: newSubjects)
+            Semester(semesterNum: semesterIndex!, subjects: newSubjects, average: calcGrades())
         let newStudent:Student = Student(name: "Yoonjong Lee", semesters: self.student!.semesters)
         db.child("Students").child(newStudent.name).setValue(newStudent.studentToDict)
         
@@ -212,9 +216,10 @@ struct Student:Codable{
 struct Semester:Codable{
     let semesterNum:Int
     var subjects:[Subject]
+    var average:Double
     var semesterToDict:[String:Any] {
         let subjectsArray = subjects.map{$0.subjectToDict}
-        let semesterDict:[String:Any] = ["semesterNum":semesterNum, "subjects":subjectsArray]
+        let semesterDict:[String:Any] = ["semesterNum":semesterNum, "subjects":subjectsArray, "average":average]
         return semesterDict
     }
     func sample(){

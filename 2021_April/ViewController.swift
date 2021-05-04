@@ -10,10 +10,12 @@
 // 2. 처음 성적을 저장할 때, 메인화면으로 나오면 지연시간으로 인해 바로 업뎃 안됨(?)
 
 import UIKit
-
+import Firebase
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SendDataDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    let db = Database.database().reference()
+    
     
     var semesterList:[String] = ["1학년 1학기", "1학년 2학기", "2학년 1학기", "2학년 2학기", "3학년 1학기", "3학년 2학기", "4학년 1학기", "4학년 2학기"]
     var scoreList:[Double] = [0,0,0,0,0,0,0,0]
@@ -37,7 +39,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             return headerView
         default:
             assert(false, "응 아니야") }
-
+        
         
     }
     
@@ -65,7 +67,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
-
+    
     override func viewDidLoad() {
         print("-- viewDidLoad 실행")
         super.viewDidLoad()
@@ -73,11 +75,28 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     override func viewWillAppear(_ animated: Bool) {
         print("-- viewWillAppear 실행")
-//        print(scoreList)
-        self.collectionView.reloadData()
+        //        print(scoreList)
+        
+
+        self.db.child("Students").child("Yoonjong Lee").observeSingleEvent(of: .value) { snapshot in
+            print("--> \(snapshot.value!)")
+            do {
+                let data = try JSONSerialization.data(withJSONObject: snapshot.value!, options: [])
+                let decoder = JSONDecoder()
+                let student = try decoder.decode(Student.self, from: data)
+                print("--> student : ", student)
+                for i in 0..<self.scoreList.count{
+                    self.scoreList[i] = student.semesters[i].average
+                }
+            } catch let error{ // 파베에 아무것도 없다면 학기 8개, 각 학기별 과목 8개 빈 배열 세팅한다.
+                print("--> ERROR occured(ViewController) ", error.localizedDescription)
+            }
+            self.collectionView.reloadData()
+        }
+        
         
     }
-
+    
 }
 
 class ScoreCell: UICollectionViewCell{
