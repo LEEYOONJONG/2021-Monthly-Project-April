@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IP8-h4-Qop">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -14,56 +14,65 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="_021_April" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="y6S-uh-Y1C">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="44" width="390" height="717"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8S6-Sm-Yii">
-                                    <size key="itemSize" width="381" height="120"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="13" minimumInteritemSpacing="10" id="8S6-Sm-Yii">
+                                    <size key="itemSize" width="361" height="120"/>
                                     <size key="headerReferenceSize" width="50" height="120"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ScoreCell" id="IAK-KB-YCH" customClass="ScoreCell" customModule="_021_April" customModuleProvider="target">
-                                        <rect key="frame" x="16.5" y="120" width="381" height="120"/>
+                                        <rect key="frame" x="14.666666666666666" y="120" width="361" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="84m-SC-nso">
-                                            <rect key="frame" x="0.0" y="0.0" width="381" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1학년 1학기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mIc-4n-28f">
-                                                    <rect key="frame" x="44" y="47.5" width="97.5" height="25.5"/>
+                                                    <rect key="frame" x="44.000000000000007" y="47.333333333333336" width="97.666666666666686" height="25.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.84" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1TK-CM-3VZ">
-                                                    <rect key="frame" x="295.5" y="47" width="50.5" height="26.5"/>
+                                                    <rect key="frame" x="233.99999999999997" y="46.666666666666664" width="50.666666666666657" height="26.666666666666664"/>
                                                     <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="22"/>
                                                     <color key="textColor" systemColor="systemRedColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.84" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pz9-da-cwd">
+                                                    <rect key="frame" x="297.66666666666669" y="46.666666666666664" width="50.333333333333314" height="26.666666666666664"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="22"/>
+                                                    <color key="textColor" systemColor="systemIndigoColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                            <color key="backgroundColor" systemColor="systemGray4Color"/>
                                             <constraints>
+                                                <constraint firstItem="Pz9-da-cwd" firstAttribute="centerY" secondItem="84m-SC-nso" secondAttribute="centerY" id="VOL-jP-wE4"/>
+                                                <constraint firstAttribute="trailing" secondItem="Pz9-da-cwd" secondAttribute="trailing" constant="13" id="ae1-gP-o5C"/>
                                                 <constraint firstItem="1TK-CM-3VZ" firstAttribute="centerY" secondItem="84m-SC-nso" secondAttribute="centerY" id="czU-m7-SeT"/>
                                                 <constraint firstItem="mIc-4n-28f" firstAttribute="centerY" secondItem="84m-SC-nso" secondAttribute="centerY" id="f0A-li-3Ol"/>
                                                 <constraint firstItem="mIc-4n-28f" firstAttribute="leading" secondItem="84m-SC-nso" secondAttribute="leading" constant="44" id="hY9-f6-mdp"/>
-                                                <constraint firstAttribute="trailing" secondItem="1TK-CM-3VZ" secondAttribute="trailing" constant="35" id="od2-KC-txz"/>
+                                                <constraint firstItem="Pz9-da-cwd" firstAttribute="leading" secondItem="1TK-CM-3VZ" secondAttribute="trailing" constant="13" id="rBB-CA-ZVR"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="381" height="120"/>
+                                        <size key="customSize" width="361" height="120"/>
                                         <connections>
                                             <outlet property="scoreLabel" destination="1TK-CM-3VZ" id="g4O-nL-Ris"/>
+                                            <outlet property="scoreLabel45" destination="Pz9-da-cwd" id="f7N-xm-XLJ"/>
                                             <outlet property="semesterLabel" destination="mIc-4n-28f" id="VJY-1o-I1b"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ScoreCellHeaderView" id="yEv-Qw-6zi" customClass="ScoreCellHeaderView" customModule="_021_April" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="120"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="학점" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kaJ-Ig-dPo">
@@ -112,11 +121,11 @@
             <objects>
                 <viewController id="QLJ-hV-eDV" customClass="DetailViewController" customModule="_021_April" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0ho-9b-Mqu">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sn1-IS-2W9">
-                                <rect key="frame" x="0.0" y="40" width="414" height="768"/>
+                                <rect key="frame" x="0.0" y="40" width="390" height="716"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dR1-0L-kh5">
                                     <size key="itemSize" width="414" height="60"/>
@@ -126,14 +135,14 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailCell" id="bwb-Hg-bFe" customClass="DetailCell" customModule="_021_April" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="160" width="414" height="60"/>
+                                        <rect key="frame" x="-12" y="160" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="VLI-aK-fOf">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="과목명" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ym7-r5-3XR">
-                                                    <rect key="frame" x="33" y="7.5" width="209" height="45"/>
+                                                    <rect key="frame" x="33" y="7.6666666666666679" width="209" height="45"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="45" id="krm-Fi-3a5"/>
                                                     </constraints>
@@ -141,7 +150,7 @@
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="학점" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WD9-8K-cnK">
-                                                    <rect key="frame" x="262" y="7.5" width="52.5" height="45"/>
+                                                    <rect key="frame" x="262" y="7.6666666666666679" width="52.666666666666686" height="45"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="52.5" id="4nY-jG-yPp"/>
                                                         <constraint firstAttribute="height" constant="45" id="cMm-lG-1Lm"/>
@@ -150,7 +159,7 @@
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="성적" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M5W-27-K1r">
-                                                    <rect key="frame" x="334.5" y="7.5" width="52.5" height="45"/>
+                                                    <rect key="frame" x="334.66666666666669" y="7.6666666666666679" width="52.333333333333314" height="45"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="45" id="7VX-aT-1TM"/>
                                                         <constraint firstAttribute="width" constant="52.5" id="dpN-Gv-qBU"/>
@@ -178,7 +187,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailCellHeaderView" id="mi9-Ie-ZQd" customClass="DetailCellHeaderView" customModule="_021_April" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="160"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1학년 1학기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dui-Ud-fFt">
@@ -188,7 +197,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ycO-d6-254">
-                                            <rect key="frame" x="354" y="100" width="50" height="50"/>
+                                            <rect key="frame" x="330" y="100" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="JMy-5x-5io"/>
                                                 <constraint firstAttribute="height" constant="50" id="L1d-Ee-Dnv"/>
@@ -241,15 +250,15 @@
             <objects>
                 <tableViewController id="YWK-de-2Fc" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Aju-Kp-yef">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="R1J-Bk-4q5">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="390" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R1J-Bk-4q5" id="Dxy-O9-EHz">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -293,8 +302,11 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

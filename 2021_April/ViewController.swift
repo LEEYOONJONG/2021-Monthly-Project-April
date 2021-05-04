@@ -28,7 +28,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ScoreCell", for: indexPath) as? ScoreCell else { return UICollectionViewCell() }
         cell.semesterLabel.text = semesterList[indexPath.row]
         cell.scoreLabel.text = "\(scoreList[indexPath.row])"
+        cell.scoreLabel45.text = "\(round(scoreList[indexPath.row]*1.07*100)/100)"
         
+        cell.layer.cornerRadius = 15
         return cell
     }
     
@@ -77,24 +79,35 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         print("-- viewWillAppear 실행")
         //        print(scoreList)
         
-
+        
         self.db.child("Students").child("Yoonjong Lee").observeSingleEvent(of: .value) { snapshot in
             print("--> \(snapshot.value!)")
+            
             do {
-                let data = try JSONSerialization.data(withJSONObject: snapshot.value!, options: [])
-                let decoder = JSONDecoder()
-                let student = try decoder.decode(Student.self, from: data)
-                print("--> student : ", student)
-                for i in 0..<self.scoreList.count{
-                    self.scoreList[i] = student.semesters[i].average
+                if (snapshot.childrenCount == 0 ){ // 어쩔 수 없이 이렇게 처리하기로 하자. catch let error로 안 넘어가기 때문에
+                    print("no child")
+                    return
                 }
-            } catch let error{ // 파베에 아무것도 없다면 학기 8개, 각 학기별 과목 8개 빈 배열 세팅한다.
+                else{
+                    print("children!! : ",snapshot.childrenCount)
+                    
+                    let data = try JSONSerialization.data(withJSONObject: snapshot.value!, options: [])
+                    let decoder = JSONDecoder()
+                    let student = try decoder.decode(Student.self, from: data)
+                    print("--> student : ", student)
+                    for i in 0..<self.scoreList.count{
+                        self.scoreList[i] = student.semesters[i].average
+                    }
+                }
+            }
+            ///////////////////
+            // catch let 문 작동 안함....
+            catch let error{ // 파베에 아무것도 없다면 학기 8개, 각 학기별 과목 8개 빈 배열 세팅한다.
                 print("--> ERROR occured(ViewController) ", error.localizedDescription)
             }
+            /////////////////
             self.collectionView.reloadData()
         }
-        
-        
     }
     
 }
@@ -102,7 +115,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 class ScoreCell: UICollectionViewCell{
     @IBOutlet weak var semesterLabel:UILabel!
     @IBOutlet weak var scoreLabel:UILabel!
-    
+    @IBOutlet weak var scoreLabel45: UILabel!
     
 }
 

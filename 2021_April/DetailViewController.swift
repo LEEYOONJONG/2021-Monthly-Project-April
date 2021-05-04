@@ -26,7 +26,7 @@ class DetailViewController: UIViewController, UICollectionViewDelegate, UICollec
     var studentExist:Bool = false
     
     var subjects:[String]=["","","","","","","",""]
-    var points:[Double]=[0,0,0,0,0,0,0,0]
+    var points:[Int]=[0,0,0,0,0,0,0,0]
     var grades:[Double]=[0,0,0,0,0,0,0,0]
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -80,8 +80,8 @@ extension DetailViewController{
         var sumPoints:Double=0.0
         for i in 0..<grades.count{
             if (grades[i] != 0){
-                sumGrades += points[i]*grades[i]
-                sumPoints += points[i]
+                sumGrades += Double(points[i])*grades[i]
+                sumPoints += Double(points[i])
             }
         }
         if sumGrades == 0 {
@@ -109,6 +109,17 @@ extension DetailViewController{
             print("--> \(snapshot.value!)")
             
             do {
+                if (snapshot.childrenCount == 0){ // 아무것도 없다면  // catch let error로 안넘어가서 임시방편으로 이렇게...
+                    var newSemesters:[Semester] = []
+                    let newSubjects:[Subject] = Array(repeating: Subject(title: "", point: 0, grade: 0), count: 8)
+
+                    for i in 0..<8 {
+                        newSemesters.append(Semester(semesterNum: i, subjects: newSubjects, average: 0))
+                    }
+                    self.student = Student(name: "Yoonjong Lee", semesters: newSemesters )
+                    return
+                }
+                
                 let data = try JSONSerialization.data(withJSONObject: snapshot.value!, options: [])
                 let decoder = JSONDecoder()
                 
@@ -117,7 +128,10 @@ extension DetailViewController{
                 self.toArray()
                 self.arrayToTextField()
                 
-            } catch let error { // 파베에 아무것도 없다면 학기 8개, 각 학기별 과목 8개 빈 배열 세팅한다.
+            }
+            /////////////////////////////
+            // catch문 작동 왜 안하지
+            catch let error { // 파베에 아무것도 없다면 학기 8개, 각 학기별 과목 8개 빈 배열 세팅한다.
                 print("--> error : ", error.localizedDescription)
                 var newSemesters:[Semester] = []
                 let newSubjects:[Subject] = Array(repeating: Subject(title: "", point: 0, grade: 0), count: 8)
@@ -127,6 +141,7 @@ extension DetailViewController{
                 }
                 self.student = Student(name: "Yoonjong Lee", semesters: newSemesters )
             }
+            /////////////////////////////
             
         }
         
@@ -174,11 +189,11 @@ extension DetailViewController {
             
             // -- 생략 가능
             subjects[indexPath!.item] = cell.subjectInput.text ?? ""
-            points[indexPath!.item] = Double(cell.pointInput.text!) ?? 0
+            points[indexPath!.item] = Int(cell.pointInput.text!) ?? 0
             grades[indexPath!.item] = Double(cell.gradeInput.text!) ?? 0
             
             // 각 semester의 subjects들을 newSubject에 데이터화.
-            newSubjects[indexPath!.item] = Subject(title: cell.subjectInput.text ?? "", point: Double(cell.pointInput.text!) ?? 0, grade: Double(cell.gradeInput.text!) ?? 0)
+            newSubjects[indexPath!.item] = Subject(title: cell.subjectInput.text ?? "", point: Int(cell.pointInput.text!) ?? 0, grade: Double(cell.gradeInput.text!) ?? 0)
         }
         
         self.student?.semesters[semesterIndex ?? 18] =
@@ -229,7 +244,7 @@ struct Semester:Codable{
 
 struct Subject:Codable {
     var title:String
-    var point:Double
+    var point:Int
     var grade:Double
     
     var subjectToDict:[String:Any]{
