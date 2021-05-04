@@ -9,7 +9,7 @@
 <img width="400" alt="스크린샷 2021-05-05 오전 2 20 06" src="https://user-images.githubusercontent.com/29617557/117043892-bfad7a80-ad48-11eb-88e7-e4fb7cdc4bc0.png">
 
 #### * Firebase
-<img width="800" alt="스크린샷 2021-05-05 오전 2 20 06" src="https://user-images.githubusercontent.com/29617557/117043975-d653d180-ad48-11eb-8659-20aaa7cc2fbb.png">
+<img width="800" alt="스크린샷 2021-05-05 오전 2 20 06" src="https://user-images.githubusercontent.com/29617557/117046437-a9ed8480-ad4b-11eb-88cf-f2f90d481f81.png">
 
 
 * 추가 작업 요소
